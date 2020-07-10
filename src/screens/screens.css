@@ -1,0 +1,52 @@
+.calendarpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.date{
+    text-align: center;
+}
+
+.modalHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calendar button {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.calendar abbr {
+    border-bottom: none;
+    text-decoration: none;
+    text-align: center;
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gaugebar{
+    width: 70%;
+}
+
+.transactions {
+    margin-top: 20px;
+    text-align: center;
+    width: 70%;
+}
+
+.addform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

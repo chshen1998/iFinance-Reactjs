@@ -1,0 +1,58 @@
+import React, {Component} from 'react'
+import './components.css'
+import ExpensesCard from './ExpenseCard.js'
+import moment from 'moment'
+import FirebaseDB from '../FirebaseDB.js'
+import {Bounce} from 'react-activity'
+
+class ExpensesTab extends Component {
+    state = {
+        transactions: [],
+        isLoading: true,
+    }
+    
+    componentDidMount() {
+        const path = "expenses/" + moment().format("D MMM YYYY") + '/transactions'
+        FirebaseDB.firestore().collection(path).get().then(querySnapshot=> {
+            const results = []
+            querySnapshot.docs.map(documentSnapshot=> results.push(documentSnapshot.data()))
+            this.setState({transactions: results, isLoading: false})
+        }).catch(err => console.error(err))
+    }
+
+    getRealTimeUpdates = () => {
+        const path = "expenses/" + moment().format("D MMM YYYY") + '/transactions'
+        FirebaseDB.firestore().collection(path).get().then(querySnapshot=> {
+            const results = []
+            querySnapshot.docs.map(documentSnapshot=> results.push(documentSnapshot.data()))
+            this.setState({transactions: results, isLoading: false})
+        }).catch(err => console.error(err))
+    }
+
+    render() {
+        const {transactions, isLoading} = this.state
+        this.getRealTimeUpdates()
+
+        let lastFive = []
+        if (transactions.length > 5) {
+            lastFive = transactions.slice(-5)
+        } else {
+            lastFive = transactions
+        }
+        const expensesList = lastFive.map(exp => <ExpensesCard time={exp.time} note={exp.note} amount={exp.amount}/>)
+        
+        if (isLoading) {
+            return (
+                <Bounce/>
+            )
+        }
+    
+        return (
+            <div className='expensesTab'>
+                {expensesList}
+            </div>
+        )
+    }
+}
+
+export default ExpensesTab
