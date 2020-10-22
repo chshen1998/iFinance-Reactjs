@@ -1,0 +1,34 @@
+.navbar-top {
+    border: 1px solid white;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+.navbar-in {
+    padding-bottom: 5px;
+    border-radius: 20px;
+    padding-top: 0px;
+}
+
+.navbar-out {
+    padding-bottom: 5px;
+    border-radius: 20px;
+    padding-top: 0px;
+}
+
+.right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style-type: none;
+}
+
+.label{
+    color: white;
+    text-decoration: none;
+}

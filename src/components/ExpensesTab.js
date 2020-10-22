@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import './components.css'
-import ExpensesCard from './ExpenseCard.js'
+import ExpensesCardWhite from './ExpenseCardWhite.js'
 import moment from 'moment'
-import FirebaseDB from '../FirebaseDB.js'
+import FirebaseDB from '../config/fbConfig.js'
 import {Bounce} from 'react-activity'
 
 class ExpensesTab extends Component {
@@ -31,6 +31,7 @@ class ExpensesTab extends Component {
 
     render() {
         const {transactions, isLoading} = this.state
+        const path = "expenses/" + moment().format("D MMM YYYY") + '/transactions'
         this.getRealTimeUpdates()
 
         let lastFive = []
@@ -39,7 +40,7 @@ class ExpensesTab extends Component {
         } else {
             lastFive = transactions
         }
-        const expensesList = lastFive.map(exp => <ExpensesCard time={exp.time} note={exp.note} amount={exp.amount}/>)
+        const expensesList = lastFive.map(exp => <ExpensesCardWhite time={exp.time} note={exp.note} amount={exp.amount} path={path}/>)
         
         if (isLoading) {
             return (

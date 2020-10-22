@@ -27,12 +27,12 @@ class CalendarPage extends Component {
         const path = "expenses/" + dateString + "/transactions"
         return (
             <div className='calendarpage'>
-                <h1>CALENDAR</h1>
+                <h1 className='header'>CALENDAR</h1>
                 <Calendar value={this.state.date} onChange={this.selectDate} maxDetail="month" minDetail="year" className='calendar'/>
 
                 <Modal isOpen={this.state.openModal} ariaHideApp={false}>
                     <div className='modalHeader'>
-                        <button onClick={this.closeModal}> Close </button>
+                        <button className='button-home' onClick={this.closeModal}> Close </button>
                         <h2 className='date'>{dateString}</h2>
                     </div>
                     <ExpensesWindow DBpath={path}/>

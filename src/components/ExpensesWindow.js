@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import './components.css'
 import ExpensesCard from './ExpenseCard.js'
-import FirebaseDB from '../FirebaseDB.js'
-import moment from 'moment'
+import FirebaseDB from '../config/fbConfig.js'
 import {Bounce} from 'react-activity'
 
 class ExpensesWindow extends Component {
+    _isMounted = false
+
     constructor(props) {
         super(props)
         this.state = {
@@ -16,6 +17,7 @@ class ExpensesWindow extends Component {
     
     
     componentDidMount() {
+        this._isMounted = true
         const path = this.props.DBpath
         FirebaseDB.firestore().collection(path).get().then(querySnapshot=> {
             const results = []
@@ -28,7 +30,7 @@ class ExpensesWindow extends Component {
         const path = this.props.DBpath
         FirebaseDB.firestore().collection(path).get().then(querySnapshot=> {
             const results = []
-            querySnapshot.docs.map(documentSnapshot=> results.push(documentSnapshot.data()))
+            querySnapshot.docs.map(documentSnapshot => results.push(documentSnapshot.data()))
             this.setState({transactions: results, isLoading: false})
         }).catch(err => console.error(err))
     }
@@ -36,7 +38,7 @@ class ExpensesWindow extends Component {
     render() {
         const {transactions, isLoading} = this.state
 
-        const expensesList = transactions.map(exp => <ExpensesCard time={exp.time} note={exp.note} amount={exp.amount}/>)
+        const expensesList = transactions.map(exp => <ExpensesCard time={exp.time} note={exp.note} amount={exp.amount} path={this.props.DBpath}/>)
 
         if (isLoading) {
             return (
